@@ -1,32 +1,15 @@
 services:
-  # An old issue: docker-compose will mount volume as root.
-  # Workaround: https://github.com/docker/compose/issues/3270
-  # (Command 'docker run -v' is not affected)
-  file-chown:
-    container_name: file-chown
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: "yanwk/comfyui-boot"
-    user: "root"
-    volumes: 
-      - "./storage:/home/runner"
-    command: "chown -R runner:runner /home/runner"
-
   comfyui:
     init: true
-    container_name: comfyui
-    depends_on:
-      file-chown:
-        condition: service_completed_successfully
+    container_name: comfyui-wd
     build:
       context: .
       dockerfile: Dockerfile
-    image: "yanwk/comfyui-boot"
+    image: "warpdriven/comfyui-boot"
     ports:
       - "8188:8188"
     volumes:
-      - "./storage:/home/runner"
+      - "./storage:/data_lake/comfyui_storage"
     environment:
       - CLI_ARGS=
     security_opt:
