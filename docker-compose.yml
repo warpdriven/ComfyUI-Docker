@@ -9,7 +9,7 @@ services:
     ports:
       - "8188:8188"
     volumes:
-      - "./storage:/data_lake/comfyui_storage"
+      - "/data_lake/comfyui_storage:/home/runner"
     environment:
       - CLI_ARGS=
     security_opt:
