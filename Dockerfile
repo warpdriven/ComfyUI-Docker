@@ -5,7 +5,7 @@
 
 FROM opensuse/tumbleweed:latest
 
-LABEL maintainer="code@yanwk.fun"
+LABEL maintainer="cubean@warp-driven.com"
 
 # Note: GCC for InsightFace;
 #       FFmpeg for video (pip[imageio-ffmpeg] will use system FFmpeg instead of bundled).
