@@ -5,13 +5,31 @@
 ```shell
 docker compose up -d
 
-# If got issue, check with next
-nvcc --version
-
-nvidia-smi
-
+Total VRAM 24217 MB, total RAM 64127 MB
+pytorch version: 2.3.0+cu121
+xformers version: 0.0.26.post1
+Set vram state to: NORMAL_VRAM
+Device: cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync
+Using xformers cross attention
+### Loading: ComfyUI-Manager (V2.43)
+### ComfyUI Revision: 1 [fbb7a1f1] | Released on '2024-06-29'
 
 ```
+
+**If got issue, check like next, just restart the computer since the Nvidia driver may update without reboot.**
+```shell
+comfyui-wd  | RuntimeError: CUDA unknown error - this may be due to an incorrectly set up environment, 
+e.g. changing env variable CUDA_VISIBLE_DEVICES after program start. Setting the available devices to be zero.
+
+```
+
+## Check Nvidia tools
+
+```shell
+nvcc --version
+nvidia-smi
+```
+
 
 ## Run the default docker container
 
