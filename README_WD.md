@@ -41,3 +41,32 @@ nvidia-smi
 
 [Basic Example](https://github.com/comfyanonymous/ComfyUI/blob/master/script_examples/basic_api_example.py)
 
+```python
+import json
+from urllib import request, parse
+
+
+def queue_prompt(prompt):
+    p = {"prompt": prompt}
+    data = json.dumps(p).encode('utf-8')
+    req = request.Request("http://127.0.0.1:8188/prompt", data=data)
+    request.urlopen(req)
+# {
+#     "prompt_id": "d9ed1894-81f0-46b5-aa97-232418faa264",
+#     "number": 22,
+#     "node_errors": {}
+# }
+
+def get_history(prompt_id):
+    with request.urlopen("http://{}/history/{}".format(server_address, prompt_id)) as response:
+        return json.loads(response.read())
+
+
+def get_image(filename, subfolder, folder_type):
+    data = {"filename": filename, "subfolder": subfolder, "type": folder_type}
+    url_values = parse.urlencode(data)
+    with request.urlopen("http://{}/view?{}".format(server_address, url_values)) as response:
+        return response.read()
+
+
+```
