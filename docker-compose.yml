@@ -17,6 +17,7 @@ services:
       - CLI_ARGS=
     security_opt:
       - "label=type:nvidia_container_t"
+    restart: always
     deploy:
       resources:
         reservations:
