@@ -2,10 +2,11 @@ services:
   comfyui:
     init: true
     container_name: comfyui-wd
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: "warpdriven/comfyui-boot"
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    image: "warpdriven/comfyui-boot"
+    image: "yanwk/comfyui-boot:latest"
     networks:
       wd_ai_net:
         ipv4_address: 172.18.0.30
