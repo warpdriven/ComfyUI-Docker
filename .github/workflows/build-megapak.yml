@@ -19,6 +19,9 @@ jobs:
     environment: Publish to Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
       - name: Maximize build disk space
         uses: easimon/maximize-build-space@master
         with:
@@ -41,9 +44,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_ACCESSTOKEN }}
       -
         name: Build and push 'megapak'
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./megapak
           file: ./megapak/Dockerfile
-          tags: yanwk/comfyui-boot:megapak
+          tags:  |
+            yanwk/comfyui-boot:megapak
+            yanwk/comfyui-boot:megapak-${{ steps.date.outputs.date }}
           push: true

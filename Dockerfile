@@ -73,18 +73,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
         compel lark torchdiffeq fairscale \
         python-ffmpeg
 
-# Additional deps for ComfyUI-3D-Pack (prebuilt by me)
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --break-system-packages \
-        https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/download/v2/diff_gaussian_rasterization-0.0.0-cp311-cp311-linux_x86_64.whl \
-        https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/download/v2/kiui-0.2.7-py3-none-any.whl \
-        https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/download/v2/nvdiffrast-0.3.1-py3-none-any.whl \
-        https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/download/v2/pointnet2_ops-3.0.0-cp311-cp311-linux_x86_64.whl \
-        https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/download/v2/pytorch3d-0.7.6-cp311-cp311-linux_x86_64.whl \
-        https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/download/v2/simple_knn-0.0.0-cp311-cp311-linux_x86_64.whl \
-        https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/download/v2/torch_scatter-2.1.2-cp311-cp311-linux_x86_64.whl \
-        https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/download/v2/torchmcubes-0.1.0-cp311-cp311-linux_x86_64.whl
-
 # 1. Fix ONNX Runtime "missing CUDA provider". Also add support for CUDA 12.1.
 #    Ref: https://onnxruntime.ai/docs/install/
 # 2. Fix MediaPipe's broken dep (protobuf<4).
@@ -100,22 +88,22 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # Fix for libs (.so files)
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}\
-:/usr/lib64/python3.11/site-packages/torch/lib\
-:/usr/lib/python3.11/site-packages/nvidia/cuda_cupti/lib\
-:/usr/lib/python3.11/site-packages/nvidia/cuda_runtime/lib\
-:/usr/lib/python3.11/site-packages/nvidia/cudnn/lib\
-:/usr/lib/python3.11/site-packages/nvidia/cufft/lib"
+:/usr/local/lib64/python3.11/site-packages/torch/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/cuda_cupti/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/cuda_runtime/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/cudnn/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/cufft/lib"
 
 # More libs (not necessary, just in case)
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}\
-:/usr/lib/python3.11/site-packages/nvidia/cublas/lib\
-:/usr/lib/python3.11/site-packages/nvidia/cuda_nvrtc/lib\
-:/usr/lib/python3.11/site-packages/nvidia/curand/lib\
-:/usr/lib/python3.11/site-packages/nvidia/cusolver/lib\
-:/usr/lib/python3.11/site-packages/nvidia/cusparse/lib\
-:/usr/lib/python3.11/site-packages/nvidia/nccl/lib\
-:/usr/lib/python3.11/site-packages/nvidia/nvjitlink/lib\
-:/usr/lib/python3.11/site-packages/nvidia/nvtx/lib"
+:/usr/local/lib/python3.11/site-packages/nvidia/cublas/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/cuda_nvrtc/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/curand/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/cusolver/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/cusparse/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/nccl/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/nvjitlink/lib\
+:/usr/local/lib/python3.11/site-packages/nvidia/nvtx/lib"
 
 # Create a low-privilege user
 RUN printf 'CREATE_MAIL_SPOOL=no' >> /etc/default/useradd \
